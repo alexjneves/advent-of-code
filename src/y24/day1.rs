@@ -2,13 +2,14 @@ use std::collections::HashMap;
 
 use crate::day::{Day, InputType, read_day_input, Part};
 
+const YEAR_ID: u8 = 24;
 const DAY_ID: u8 = 1;
 
 pub struct Day1 {}
 
 impl Day for Day1 {
     fn run(&self, part: Part, input_type: InputType) -> i32 {
-        let input = read_day_input(DAY_ID, &part, &input_type);
+        let input = read_day_input(YEAR_ID, DAY_ID, &part, &input_type);
 
         let (column1, column2) = get_columns(&input);
 

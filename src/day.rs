@@ -14,24 +14,28 @@ pub enum InputType {
     Custom,
 }
 
-pub fn read_day_input(day: u8, part: &Part, input_type: &InputType) -> Vec<String> {
-    let contents = read_day_input_string(day, part, input_type);
+pub fn read_day_input(year: u8, day: u8, part: &Part, input_type: &InputType) -> Vec<String> {
+    let contents = read_day_input_string(year, day, part, input_type);
 
     contents
-        .split('\n')
+        .lines()
         .map(|line| line.to_owned())
         .collect()
 }
 
-pub fn read_day_input_string(day: u8, part: &Part, input_type: &InputType) -> String {
+pub fn read_day_input_string(year: u8, day: u8, part: &Part, input_type: &InputType) -> String {
     let path = match input_type {
         InputType::Example => format!(
-            "src/day{}/files/part{}_example_input.txt",
+            "src/y{}/inputs/y{}_d{}_part{}_example_input.txt",
+            year,
+            year,
             day,
             part_to_int(part)
         ),
         InputType::Custom => format!(
-            "src/day{}/files/custom_input.txt",
+            "src/y{}/inputs/y{}_d{}_custom_input.txt",
+            year,
+            year,
             day,
         )
     };

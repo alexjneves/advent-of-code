@@ -1,12 +1,13 @@
 use crate::day::{read_day_input, Day, InputType, Part};
 
-const DAY_ID: u8 = 6;
+const YEAR_ID: u8 = 0;
+const DAY_ID: u8 = 0;
 
-pub struct Day6 {}
+pub struct Day0 {}
 
-impl Day for Day6 {
+impl Day for Day0 {
     fn run(&self, part: Part, input_type: InputType) -> i32 {
-        let input = read_day_input(DAY_ID, &part, &input_type);
+        let input = read_day_input(YEAR_ID, DAY_ID, &part, &input_type);
 
         match part {
             Part::One => part1(&input),
@@ -28,41 +29,41 @@ mod tests {
     use super::*;
 
     #[test]
-    fn day6_part1_example_input() {
-        const EXPECTED_ANSWER: i32 = 41;
+    fn day0_part1_example_input() {
+        const EXPECTED_ANSWER: i32 = 0;
 
-        let day6 = Day6 {};
-        let answer = day6.run(Part::One, InputType::Example);
+        let day0 = Day0 {};
+        let answer = day0.run(Part::One, InputType::Example);
 
         assert!(answer == EXPECTED_ANSWER);
     }
 
     #[test]
-    fn day6_part1_custom_input() {
+    fn day0_part1_custom_input() {
         const EXPECTED_ANSWER: i32 = 0;
 
-        let day6 = Day6 {};
-        let answer = day6.run(Part::One,InputType::Custom);
+        let day0 = Day0 {};
+        let answer = day0.run(Part::One,InputType::Custom);
 
         assert!(answer == EXPECTED_ANSWER);
     }
 
     #[test]
-    fn day6_part2_example_input() {
+    fn day0_part2_example_input() {
         const EXPECTED_ANSWER: i32 = 0;
 
-        let day6 = Day6 {};
-        let answer = day6.run(Part::Two, InputType::Example);
+        let day0 = Day0 {};
+        let answer = day0.run(Part::Two, InputType::Example);
 
         assert!(answer == EXPECTED_ANSWER);
     }
 
     #[test]
-    fn day6_part2_custom_input() {
+    fn day0_part2_custom_input() {
         const EXPECTED_ANSWER: i32 = 0;
 
-        let day6 = Day6 {};
-        let answer = day6.run(Part::Two,InputType::Custom);
+        let day0 = Day0 {};
+        let answer = day0.run(Part::Two,InputType::Custom);
         
         assert!(answer == EXPECTED_ANSWER);
     }

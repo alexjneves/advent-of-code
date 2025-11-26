@@ -1,12 +1,13 @@
 use crate::day::{Day, InputType, read_day_input, Part};
 
+const YEAR_ID: u8 = 24;
 const DAY_ID: u8 = 2;
 
 pub struct Day2 {}
 
 impl Day for Day2 {
     fn run(&self, part: Part, input_type: InputType) -> i32 {
-        let input = read_day_input(DAY_ID, &part, &input_type);
+        let input = read_day_input(YEAR_ID, DAY_ID, &part, &input_type);
 
         match part {
             Part::One => part1(&input),

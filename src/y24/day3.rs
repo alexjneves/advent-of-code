@@ -2,6 +2,7 @@ use regex::Regex;
 
 use crate::day::{read_day_input_string, Day, InputType, Part};
 
+const YEAR_ID: u8 = 24;
 const DAY_ID: u8 = 3;
 
 pub struct Day3 {}
@@ -13,7 +14,7 @@ struct Mult {
 
 impl Day for Day3 {
     fn run(&self, part: Part, input_type: InputType) -> i32 {
-        let input = read_day_input_string(DAY_ID, &part, &input_type);
+        let input = read_day_input_string(YEAR_ID, DAY_ID, &part, &input_type);
 
         match part {
             Part::One => part1(&input),

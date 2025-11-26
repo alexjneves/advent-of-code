@@ -12,7 +12,7 @@ struct Cli {
     year: u8,
     day: u8,
     part: u8,
-    input: char
+    input: char,
 }
 
 fn main() {
@@ -21,33 +21,42 @@ fn main() {
     let part = match args.part {
         1 => Part::One,
         2 => Part::Two,
-        _ => exit(-1)
+        _ => exit(-1),
     };
 
     let input = match args.input {
         'e' => InputType::Example,
         'c' => InputType::Custom,
-        _ => exit(-1)
+        _ => exit(-1),
     };
 
-    let day = format!("{}-{}", args.year, args.day);
-
-    let answer: Result<i32, String> = match day.as_str() {
-        "24-1" => Ok(y24::day1::Day1 {}.run(part, input)),
-        "24-2" => Ok(y24::day2::Day2 {}.run(part, input)),
-        "24-3" => Ok(y24::day3::Day3 {}.run(part, input)),
-        "24-5" => Ok(y24::day5::Day5 {}.run(part, input)),
-        "24-6" => Ok(y24::day6::Day6 {}.run(part, input)),
-        "24-7" => Ok(y24::day7::Day7 {}.run(part, input)),
-        "24-8" => Ok(y24::day8::Day8 {}.run(part, input)),
-
-        "25-1" => Ok(y25::day1::Day1 {}.run(part, input)),
-
-        _ => Err("Invalid year/day provided".to_owned())
+    let day = match get_day(args.year, args.day) {
+        Ok(day) => day,
+        Err(error) => {
+            println!("Error: {}", error.as_str());
+            exit(-1);
+        }
     };
 
-    match answer {
-        Ok(answer) => println!("Result: {}", answer),
-        Err(error)=> println!("Error: {}", error.as_str()) 
-    }
+    let answer = day.run(part, input);
+    
+    println!("Result: {}", answer);
+}
+
+fn get_day(year: u8, day: u8) -> Result<Box<dyn Day>, String> {
+    let day_id = format!("{}-{}", year, day);
+
+    return match day_id.as_str() {
+        "24-1" => Ok(Box::new(y24::day1::Day1 {})),
+        "24-2" => Ok(Box::new(y24::day2::Day2 {})),
+        "24-3" => Ok(Box::new(y24::day3::Day3 {})),
+        "24-5" => Ok(Box::new(y24::day5::Day5 {})),
+        "24-6" => Ok(Box::new(y24::day6::Day6 {})),
+        "24-7" => Ok(Box::new(y24::day7::Day7 {})),
+        "24-8" => Ok(Box::new(y24::day8::Day8 {})),
+
+        "25-1" => Ok(Box::new(y25::day1::Day1 {})),
+
+        _ => Err("Invalid year/day provided".to_owned()),
+    };
 }

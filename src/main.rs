@@ -49,9 +49,6 @@ fn get_day(year: u8, day: u8) -> Result<Box<dyn Day>, String> {
         (24, 2) => Ok(Box::new(y24::day2::Day2 {})),
         (24, 3) => Ok(Box::new(y24::day3::Day3 {})),
         (24, 5) => Ok(Box::new(y24::day5::Day5 {})),
-        (24, 6) => Ok(Box::new(y24::day6::Day6 {})),
-        (24, 7) => Ok(Box::new(y24::day7::Day7 {})),
-        (24, 8) => Ok(Box::new(y24::day8::Day8 {})),
 
         (25, 1) => Ok(Box::new(y25::day1::Day1 {})),
 

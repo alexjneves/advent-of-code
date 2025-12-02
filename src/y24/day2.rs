@@ -82,40 +82,40 @@ fn is_level_safe_part_2_brute_force(level: &Vec<u32>) -> bool {
 }
 
 // Doesn't work
-fn is_level_safe_part_2(level: &Vec<u32>, problem_dampener: bool) -> bool {
-    let mut asc: Option<bool> = Option::None;
-    let mut allowed_skip = problem_dampener;
+// fn is_level_safe_part_2(level: &Vec<u32>, problem_dampener: bool) -> bool {
+//     let mut asc: Option<bool> = Option::None;
+//     let mut allowed_skip = problem_dampener;
 
-    let mut i  = 0;
-    let mut j = 1;
+//     let mut i  = 0;
+//     let mut j = 1;
 
-    while j < level.len() {
-        let x = level.get(i).unwrap();
-        let y = level.get(j).unwrap();
+//     while j < level.len() {
+//         let x = level.get(i).unwrap();
+//         let y = level.get(j).unwrap();
 
-        let check_asc = asc.unwrap_or(x < y);
+//         let check_asc = asc.unwrap_or(x < y);
 
-        let is_valid = is_diff_in_range(x, y) && (if check_asc {x < y} else {x > y});
+//         let is_valid = is_diff_in_range(x, y) && (if check_asc {x < y} else {x > y});
 
-        if !is_valid {
-            if !allowed_skip {
-                return false;
-            }
+//         if !is_valid {
+//             if !allowed_skip {
+//                 return false;
+//             }
 
-            allowed_skip = false;
-        } else {
-            if asc.is_none() {
-                asc = Some(check_asc);
-            }
+//             allowed_skip = false;
+//         } else {
+//             if asc.is_none() {
+//                 asc = Some(check_asc);
+//             }
 
-            i = j;
-        }
+//             i = j;
+//         }
 
-        j = j + 1;
-    }
+//         j = j + 1;
+//     }
 
-    true
-}
+//     true
+// }
 
 fn is_diff_in_range(x: &u32, y: &u32) -> bool {
     let diff = x.abs_diff(*y);

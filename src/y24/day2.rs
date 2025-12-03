@@ -6,7 +6,7 @@ const DAY_ID: u8 = 2;
 pub struct Day2 {}
 
 impl Day for Day2 {
-    fn run(&self, part: Part, input_type: InputType) -> i32 {
+    fn run(&self, part: Part, input_type: InputType) -> i64 {
         let input = read_day_input(YEAR_ID, DAY_ID, &part, &input_type);
 
         match part {
@@ -16,20 +16,20 @@ impl Day for Day2 {
     }
 }
 
-fn part1(input: &Vec<String>) -> i32 {
+fn part1(input: &Vec<String>) -> i64 {
     input.iter()
         .map(parse_report)
         .map(|report| is_level_safe_part_1(&report))
         .filter(|is_safe| *is_safe)
-        .count() as i32
+        .count() as i64
 }
 
-fn part2(input: &Vec<String>) -> i32 {
+fn part2(input: &Vec<String>) -> i64 {
     input.iter()
         .map(parse_report)
         .map(|report| is_level_safe_part_2_brute_force(&report))
         .filter(|is_safe| *is_safe)
-        .count() as i32
+        .count() as i64
 }
 
 fn parse_report(input: &String) -> Vec<u32> {
@@ -128,41 +128,41 @@ mod tests {
 
     #[test]
     fn day2_part1_example_input() {
-        const EXPECTED_ANSWER: i32 = 2;
+        const EXPECTED_ANSWER: i64 = 2;
 
         let day2 = Day2 {};
         let answer = day2.run(Part::One, InputType::Example);
 
-        assert!(answer == EXPECTED_ANSWER);
+        assert_eq!(answer, EXPECTED_ANSWER);
     }
 
     #[test]
     fn day2_part1_custom_input() {
-        const EXPECTED_ANSWER: i32 = 321;
+        const EXPECTED_ANSWER: i64 = 321;
 
         let day2 = Day2 {};
         let answer = day2.run(Part::One,InputType::Custom);
 
-        assert!(answer == EXPECTED_ANSWER);
+        assert_eq!(answer, EXPECTED_ANSWER);
     }
 
     #[test]
     fn day2_part2_example_input() {
-        const EXPECTED_ANSWER: i32 = 4;
+        const EXPECTED_ANSWER: i64 = 4;
 
         let day2 = Day2 {};
         let answer = day2.run(Part::Two, InputType::Example);
 
-        assert!(answer == EXPECTED_ANSWER);
+        assert_eq!(answer, EXPECTED_ANSWER);
     }
 
     #[test]
     fn day2_part2_custom_input() {
-        const EXPECTED_ANSWER: i32 = 386;
+        const EXPECTED_ANSWER: i64 = 386;
 
         let day2 = Day2 {};
         let answer = day2.run(Part::Two,InputType::Custom);
         
-        assert!(answer == EXPECTED_ANSWER);
+        assert_eq!(answer, EXPECTED_ANSWER);
     }
 }

@@ -1,7 +1,7 @@
 use std::fs;
 
 pub trait Day {
-    fn run(&self, part: Part, input: InputType) -> i32;
+    fn run(&self, part: Part, input: InputType) -> i64;
 }
 
 pub enum Part {

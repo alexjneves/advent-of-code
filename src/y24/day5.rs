@@ -7,12 +7,12 @@ pub struct Day5 {}
 
 #[derive(Debug)]
 struct PageOrderingRule {
-    first: i32,
-    second: i32
+    first: i64,
+    second: i64
 }
 
 impl Day for Day5 {
-    fn run(&self, part: Part, input_type: InputType) -> i32 {
+    fn run(&self, part: Part, input_type: InputType) -> i64 {
         let input = read_day_input(YEAR_ID, DAY_ID, &part, &input_type);
 
         match part {
@@ -22,7 +22,7 @@ impl Day for Day5 {
     }
 }
 
-fn part1(input: &Vec<String>) -> i32 {
+fn part1(input: &Vec<String>) -> i64 {
     let (rules, pages) = parse_input(input);
 
     let (valid_pages, _) = split_pages(&rules, &pages);
@@ -32,7 +32,7 @@ fn part1(input: &Vec<String>) -> i32 {
         .sum()
 }
 
-fn part2(input: &Vec<String>) -> i32 {
+fn part2(input: &Vec<String>) -> i64 {
     let (rules, pages) = parse_input(input);
 
     let (_, invalid_pages) = split_pages(&rules, &pages);
@@ -43,9 +43,9 @@ fn part2(input: &Vec<String>) -> i32 {
         .sum()
 }
 
-fn parse_input(input: &Vec<String>) -> (Vec<PageOrderingRule>, Vec<Vec<i32>>) {
+fn parse_input(input: &Vec<String>) -> (Vec<PageOrderingRule>, Vec<Vec<i64>>) {
     let mut page_ordering_rules: Vec<PageOrderingRule> = vec![];
-    let mut pages: Vec<Vec<i32>> = vec![];
+    let mut pages: Vec<Vec<i64>> = vec![];
 
     let mut parse_pages = false;
 
@@ -76,16 +76,16 @@ fn parse_page_order_rule(input: &String) -> PageOrderingRule {
     }
 }
 
-fn parse_page(input: &String) -> Vec<i32> {
+fn parse_page(input: &String) -> Vec<i64> {
     input
         .split(",")
-        .map(|n| n.parse::<i32>().unwrap())
+        .map(|n| n.parse::<i64>().unwrap())
         .collect()
 }
 
-fn split_pages<'a>(rules: &Vec<PageOrderingRule>, pages: &'a Vec<Vec<i32>>) -> (Vec<&'a Vec<i32>>, Vec<&'a Vec<i32>>) {
-    let mut valid_pages: Vec<&Vec<i32>> = vec![];
-    let mut invalid_pages: Vec<&Vec<i32>> = vec![];
+fn split_pages<'a>(rules: &Vec<PageOrderingRule>, pages: &'a Vec<Vec<i64>>) -> (Vec<&'a Vec<i64>>, Vec<&'a Vec<i64>>) {
+    let mut valid_pages: Vec<&Vec<i64>> = vec![];
+    let mut invalid_pages: Vec<&Vec<i64>> = vec![];
 
     for page in pages {
         let mut is_valid = true;
@@ -107,7 +107,7 @@ fn split_pages<'a>(rules: &Vec<PageOrderingRule>, pages: &'a Vec<Vec<i32>>) -> (
     (valid_pages, invalid_pages)
 }
 
-fn does_page_satisfy_rule(rule: &PageOrderingRule, page: &Vec<i32>) -> bool {
+fn does_page_satisfy_rule(rule: &PageOrderingRule, page: &Vec<i64>) -> bool {
     if let Some(first_index) = page.iter().position(|i| *i == rule.first) {
         if let Some(second_index) = page.iter().position(|i| *i == rule.second) {
             return first_index < second_index;
@@ -117,12 +117,12 @@ fn does_page_satisfy_rule(rule: &PageOrderingRule, page: &Vec<i32>) -> bool {
     return true;
 }
 
-fn get_middle_page_number(page: &Vec<i32>) -> i32 {
+fn get_middle_page_number(page: &Vec<i64>) -> i64 {
     let middle_index = page.len() / 2;
     page.get(middle_index).unwrap().to_owned()
 }
 
-fn fix_page(rules: &Vec<PageOrderingRule>, page: &Vec<i32>) -> Vec<i32> {
+fn fix_page(rules: &Vec<PageOrderingRule>, page: &Vec<i64>) -> Vec<i64> {
     let mut result = page.to_owned();
     let mut is_valid = false;
 
@@ -144,7 +144,7 @@ fn fix_page(rules: &Vec<PageOrderingRule>, page: &Vec<i32>) -> Vec<i32> {
     result
 }
 
-fn fix_page_for_rule(rule: &PageOrderingRule, page: &mut Vec<i32>) -> () {
+fn fix_page_for_rule(rule: &PageOrderingRule, page: &mut Vec<i64>) -> () {
     if let Some(first_index) = page.iter().position(|i| *i == rule.first) {
         if let Some(second_index) = page.iter().position(|i| *i == rule.second) {
             if first_index > second_index {
@@ -160,41 +160,41 @@ mod tests {
 
     #[test]
     fn day5_part1_example_input() {
-        const EXPECTED_ANSWER: i32 = 143;
+        const EXPECTED_ANSWER: i64 = 143;
 
         let day5 = Day5 {};
         let answer = day5.run(Part::One, InputType::Example);
 
-        assert!(answer == EXPECTED_ANSWER);
+        assert_eq!(answer, EXPECTED_ANSWER);
     }
 
     #[test]
     fn day5_part1_custom_input() {
-        const EXPECTED_ANSWER: i32 = 6949;
+        const EXPECTED_ANSWER: i64 = 6949;
 
         let day5 = Day5 {};
         let answer = day5.run(Part::One,InputType::Custom);
 
-        assert!(answer == EXPECTED_ANSWER);
+        assert_eq!(answer, EXPECTED_ANSWER);
     }
 
     #[test]
     fn day5_part2_example_input() {
-        const EXPECTED_ANSWER: i32 = 123;
+        const EXPECTED_ANSWER: i64 = 123;
 
         let day5 = Day5 {};
         let answer = day5.run(Part::Two, InputType::Example);
 
-        assert!(answer == EXPECTED_ANSWER);
+        assert_eq!(answer, EXPECTED_ANSWER);
     }
 
     #[test]
     fn day5_part2_custom_input() {
-        const EXPECTED_ANSWER: i32 = 4145;
+        const EXPECTED_ANSWER: i64 = 4145;
 
         let day5 = Day5 {};
         let answer = day5.run(Part::Two,InputType::Custom);
         
-        assert!(answer == EXPECTED_ANSWER);
+        assert_eq!(answer, EXPECTED_ANSWER);
     }
 }

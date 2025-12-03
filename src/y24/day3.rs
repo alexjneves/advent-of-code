@@ -8,12 +8,12 @@ const DAY_ID: u8 = 3;
 pub struct Day3 {}
 
 struct Mult {
-    x: i32,
-    y: i32
+    x: i64,
+    y: i64
 }
 
 impl Day for Day3 {
-    fn run(&self, part: Part, input_type: InputType) -> i32 {
+    fn run(&self, part: Part, input_type: InputType) -> i64 {
         let input = read_day_input_string(YEAR_ID, DAY_ID, &part, &input_type);
 
         match part {
@@ -23,14 +23,14 @@ impl Day for Day3 {
     }
 }
 
-fn part1(input: &String) -> i32 {
+fn part1(input: &String) -> i64 {
     parse_mults(input)
         .iter()
         .map(|m| m.x * m.y)
         .fold(0, |acc, x| acc + x)
 }
 
-fn part2(input: &String) -> i32 {
+fn part2(input: &String) -> i64 {
     parse_mults_with_do_dont(input)
         .iter()
         .map(|m| m.x * m.y)
@@ -82,41 +82,41 @@ mod tests {
 
     #[test]
     fn day3_part1_example_input() {
-        const EXPECTED_ANSWER: i32 = 161;
+        const EXPECTED_ANSWER: i64 = 161;
 
         let day3 = Day3 {};
         let answer = day3.run(Part::One, InputType::Example);
 
-        assert!(answer == EXPECTED_ANSWER);
+        assert_eq!(answer, EXPECTED_ANSWER);
     }
 
     #[test]
     fn day3_part1_custom_input() {
-        const EXPECTED_ANSWER: i32 = 167090022;
+        const EXPECTED_ANSWER: i64 = 167090022;
 
         let day3 = Day3 {};
         let answer = day3.run(Part::One,InputType::Custom);
 
-        assert!(answer == EXPECTED_ANSWER);
+        assert_eq!(answer, EXPECTED_ANSWER);
     }
 
     #[test]
     fn day3_part2_example_input() {
-        const EXPECTED_ANSWER: i32 = 48;
+        const EXPECTED_ANSWER: i64 = 48;
 
         let day3 = Day3 {};
         let answer = day3.run(Part::Two, InputType::Example);
 
-        assert!(answer == EXPECTED_ANSWER);
+        assert_eq!(answer, EXPECTED_ANSWER);
     }
 
     #[test]
     fn day3_part2_custom_input() {
-        const EXPECTED_ANSWER: i32 = 89823704;
+        const EXPECTED_ANSWER: i64 = 89823704;
 
         let day3 = Day3 {};
         let answer = day3.run(Part::Two,InputType::Custom);
         
-        assert!(answer == EXPECTED_ANSWER);
+        assert_eq!(answer, EXPECTED_ANSWER);
     }
 }

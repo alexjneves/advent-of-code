@@ -15,11 +15,11 @@ enum Direction {
 #[derive(Debug)]
 struct Rotation {
     direction: Direction,
-    distance: i32
+    distance: i64
 }
 
 impl Day for Day1 {
-    fn run(&self, part: Part, input_type: InputType) -> i32 {
+    fn run(&self, part: Part, input_type: InputType) -> i64 {
         let input = read_day_input(YEAR_ID, DAY_ID, &part, &input_type);
 
         let rotations = input.iter().map(parse_rotation).collect();
@@ -44,12 +44,12 @@ fn parse_rotation(input: &String) -> Rotation {
     }
 }
 
-fn part1(rotations: &Vec<Rotation>) -> i32 {
-    let mut dial: i32 = 50;
-    let mut zero_count: i32 = 0;
+fn part1(rotations: &Vec<Rotation>) -> i64 {
+    let mut dial: i64 = 50;
+    let mut zero_count: i64 = 0;
 
     for rotation in rotations  {
-        let rotation_distance: i32 = match rotation.direction {
+        let rotation_distance: i64 = match rotation.direction {
             Direction::Right => rotation.distance % 100,
             Direction::Left => 100 - (rotation.distance % 100)
         };
@@ -66,9 +66,9 @@ fn part1(rotations: &Vec<Rotation>) -> i32 {
     zero_count
 }
 
-fn part2(rotations: &Vec<Rotation>) -> i32 {
-    let mut dial: i32 = 50;
-    let mut zero_count: i32 = 0;
+fn part2(rotations: &Vec<Rotation>) -> i64 {
+    let mut dial: i64 = 50;
+    let mut zero_count: i64 = 0;
 
     for r in rotations  {
         let distance_modulo = r.distance % 100;
@@ -112,7 +112,7 @@ mod tests {
 
     #[test]
     fn day1_part1_example_input() {
-        const EXPECTED_ANSWER: i32 = 3;
+        const EXPECTED_ANSWER: i64 = 3;
 
         let day1 = Day1 {};
         let answer = day1.run(Part::One, InputType::Example);
@@ -122,7 +122,7 @@ mod tests {
 
     #[test]
     fn day1_part1_custom_input() {
-        const EXPECTED_ANSWER: i32 = 1007;
+        const EXPECTED_ANSWER: i64 = 1007;
 
         let day1 = Day1 {};
         let answer = day1.run(Part::One,InputType::Custom);
@@ -132,7 +132,7 @@ mod tests {
 
     #[test]
     fn day1_part2_example_input() {
-        const EXPECTED_ANSWER: i32 = 6;
+        const EXPECTED_ANSWER: i64 = 6;
 
         let day1 = Day1 {};
         let answer = day1.run(Part::Two, InputType::Example);
@@ -142,7 +142,7 @@ mod tests {
 
     #[test]
     fn day1_part2_custom_input() {
-        const EXPECTED_ANSWER: i32 = 5820;
+        const EXPECTED_ANSWER: i64 = 5820;
 
         let day1 = Day1 {};
         let answer = day1.run(Part::Two,InputType::Custom);

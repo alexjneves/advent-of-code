@@ -6,7 +6,7 @@ const DAY_ID: u8 = 0;
 pub struct Day0 {}
 
 impl Day for Day0 {
-    fn run(&self, part: Part, input_type: InputType) -> i32 {
+    fn run(&self, part: Part, input_type: InputType) -> i64 {
         let input = read_day_input(YEAR_ID, DAY_ID, &part, &input_type);
 
         match part {
@@ -16,11 +16,11 @@ impl Day for Day0 {
     }
 }
 
-fn part1(input: &Vec<String>) -> i32 {
+fn part1(input: &Vec<String>) -> i64 {
     0
 }
 
-fn part2(input: &Vec<String>) -> i32 {
+fn part2(input: &Vec<String>) -> i64 {
     0
 }
 
@@ -30,41 +30,41 @@ mod tests {
 
     #[test]
     fn day0_part1_example_input() {
-        const EXPECTED_ANSWER: i32 = 0;
+        const EXPECTED_ANSWER: i64 = 0;
 
         let day0 = Day0 {};
         let answer = day0.run(Part::One, InputType::Example);
 
-        assert!(answer == EXPECTED_ANSWER);
+        assert_eq!(answer, EXPECTED_ANSWER);
     }
 
     #[test]
     fn day0_part1_custom_input() {
-        const EXPECTED_ANSWER: i32 = 0;
+        const EXPECTED_ANSWER: i64 = 0;
 
         let day0 = Day0 {};
         let answer = day0.run(Part::One,InputType::Custom);
 
-        assert!(answer == EXPECTED_ANSWER);
+        assert_eq!(answer, EXPECTED_ANSWER);
     }
 
     #[test]
     fn day0_part2_example_input() {
-        const EXPECTED_ANSWER: i32 = 0;
+        const EXPECTED_ANSWER: i64 = 0;
 
         let day0 = Day0 {};
         let answer = day0.run(Part::Two, InputType::Example);
 
-        assert!(answer == EXPECTED_ANSWER);
+        assert_eq!(answer, EXPECTED_ANSWER);
     }
 
     #[test]
     fn day0_part2_custom_input() {
-        const EXPECTED_ANSWER: i32 = 0;
+        const EXPECTED_ANSWER: i64 = 0;
 
         let day0 = Day0 {};
         let answer = day0.run(Part::Two,InputType::Custom);
         
-        assert!(answer == EXPECTED_ANSWER);
+        assert_eq!(answer, EXPECTED_ANSWER);
     }
 }

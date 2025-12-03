@@ -51,6 +51,7 @@ fn get_day(year: u8, day: u8) -> Result<Box<dyn Day>, String> {
         (24, 5) => Ok(Box::new(y24::day5::Day5 {})),
 
         (25, 1) => Ok(Box::new(y25::day1::Day1 {})),
+        (25, 2) => Ok(Box::new(y25::day2::Day2 {})),
 
         _ => Err("Invalid year/day provided".to_owned())
     }

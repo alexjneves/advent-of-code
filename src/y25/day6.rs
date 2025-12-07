@@ -20,8 +20,6 @@ impl Day for Day6 {
             Part::Two => parse_cephalopod_math_problem(&input),
         };
 
-        println!("{:?}", math_problems);
-
         math_problems.iter()
             .map(solve_math_problem)
             .sum()
@@ -49,25 +47,29 @@ fn apply_operator(x: i64, y: i64, operator: char) -> i64 {
 fn parse_math_problems(input: &Vec<String>) -> Vec<MathProblem> {
     let mut problems: Vec<MathProblem> = vec![];
 
-    for (i, line) in input.iter().enumerate() {
-        if i == input.len() - 1 {
-            // operators
-            let operators: Vec<char> = line.split_whitespace().map(|l| l.chars().nth(0).unwrap()).collect();
-            for (j, operator) in operators.iter().enumerate() {
-                problems[j].operator = *operator;
+    let (operators_row, number_rows) = input.split_last().unwrap();
+
+    for number_row in number_rows.iter() {
+        let numbers: Vec<i64> = number_row
+            .split_whitespace()
+            .map(|l| l.parse::<i64>().unwrap())
+            .collect();
+
+        for (i, number) in numbers.iter().enumerate() {
+            if problems.get(i).is_none() {
+                problems.push(MathProblem { numbers: vec![], operator: '.' });
             }
 
-        } else {
-            // numbers
-            let numbers: Vec<i64> = line.split_whitespace().map(|l| l.parse::<i64>().unwrap()).collect();
-            for (j, number) in numbers.iter().enumerate() {
-                if problems.get(j).is_none() {
-                    problems.push(MathProblem { numbers: vec![], operator: '.' });
-                }
-
-                problems[j].numbers.push(*number);
-            }
+            problems[i].numbers.push(*number);
         }
+    }
+
+    let operators = operators_row
+        .split_whitespace()
+        .map(|l| l.chars().nth(0).unwrap());
+
+    for (i, operator) in operators.enumerate() {
+        problems[i].operator = operator;
     }
 
     problems
@@ -78,37 +80,45 @@ fn parse_cephalopod_math_problem(input: &Vec<String>) -> Vec<MathProblem> {
 
     let (operators_row, number_rows) = input.split_last().unwrap();
 
-    let mut columns: Vec<Vec<char>> = vec![];
-
+    let mut columns_as_chars: Vec<Vec<char>> = vec![];
     for number_row in number_rows {
         for (i, c) in number_row.chars().enumerate() {
-            if columns.get(i).is_none() {
-                columns.push(vec![]);
+            if columns_as_chars.get(i).is_none() {
+                columns_as_chars.push(vec![]);
             }
 
-            columns[i].push(c);
+            columns_as_chars[i].push(c);
         }
     }
 
-    let column_strings: Vec<String> = columns.iter().map(|c| c.iter().collect::<String>().trim().to_owned()).collect();
+    let columns_as_strings: Vec<String> = columns_as_chars.iter()
+        .map(|c| 
+            c.iter().collect::<String>()
+            .trim()
+            .to_owned())
+        .collect();
 
     let mut column_index = 0;
-    for column_string in column_strings {
-        if !column_string.is_empty() {
-            let num = column_string.parse::<i64>().unwrap();
+    for string_column in columns_as_strings {
+        if !string_column.is_empty() {
+            let number = string_column.parse::<i64>().unwrap();
+            
             if problems.get(column_index).is_none() {
                 problems.push(MathProblem { numbers: vec![], operator: '.' });
             }
-            problems[column_index].numbers.push(num);
+
+            problems[column_index].numbers.push(number);
         } else {
             column_index += 1;
         }
     }
 
-    // operators
-    let operators: Vec<char> = operators_row.split_whitespace().map(|l| l.chars().nth(0).unwrap()).collect();
-    for (i, operator) in operators.iter().enumerate() {
-        problems[i].operator = *operator;
+    let operators = operators_row
+        .split_whitespace()
+        .map(|l| l.chars().nth(0).unwrap());
+
+    for (i, operator) in operators.enumerate() {
+        problems[i].operator = operator;
     }
 
     problems

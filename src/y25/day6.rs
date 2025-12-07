@@ -26,24 +26,6 @@ impl Day for Day6 {
     }
 }
 
-fn solve_math_problem(problem: &MathProblem) -> i64 {
-    let init = match problem.operator {
-        '*' => 1,
-        '+' => 0,
-        _ => panic!("Unsupported operator")
-    };
-
-    problem.numbers.iter().fold(init, |acc, n| apply_operator(acc, *n, problem.operator))
-}
-
-fn apply_operator(x: i64, y: i64, operator: char) -> i64 {
-    match operator {
-        '*' => x * y,
-        '+' => x + y,
-        _ => panic!("Unsupported operator")
-    }
-}
-
 fn parse_math_problems(input: &Vec<String>) -> Vec<MathProblem> {
     let mut problems: Vec<MathProblem> = vec![];
 
@@ -91,18 +73,17 @@ fn parse_cephalopod_math_problem(input: &Vec<String>) -> Vec<MathProblem> {
         }
     }
 
-    let columns_as_strings: Vec<String> = columns_as_chars.iter()
+    let columns_as_strings= columns_as_chars.iter()
         .map(|c| 
             c.iter().collect::<String>()
             .trim()
-            .to_owned())
-        .collect();
+            .to_owned());
 
     let mut column_index = 0;
     for string_column in columns_as_strings {
         if !string_column.is_empty() {
             let number = string_column.parse::<i64>().unwrap();
-            
+
             if problems.get(column_index).is_none() {
                 problems.push(MathProblem { numbers: vec![], operator: '.' });
             }
@@ -122,6 +103,24 @@ fn parse_cephalopod_math_problem(input: &Vec<String>) -> Vec<MathProblem> {
     }
 
     problems
+}
+
+fn solve_math_problem(problem: &MathProblem) -> i64 {
+    let init = match problem.operator {
+        '*' => 1,
+        '+' => 0,
+        _ => panic!("Unsupported operator")
+    };
+
+    problem.numbers.iter().fold(init, |acc, n| apply_operator(acc, *n, problem.operator))
+}
+
+fn apply_operator(x: i64, y: i64, operator: char) -> i64 {
+    match operator {
+        '*' => x * y,
+        '+' => x + y,
+        _ => panic!("Unsupported operator")
+    }
 }
 
 #[cfg(test)]

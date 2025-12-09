@@ -17,15 +17,14 @@ struct JunctionBox {
     z: i64
 }
 
-//type Circuit = Vec<Box<JunctionBox>>;
-type Circuit<'a> = Vec<&'a JunctionBox>;
-
 #[derive(Debug)]
 struct JunctionBoxPair<'a> {
     box1: &'a JunctionBox,
     box2: &'a JunctionBox,
     distance: f64
 }
+
+type Circuit<'a> = Vec<&'a JunctionBox>;
 
 impl Day for Day8 {
     fn run(&self, part: Part, input_type: InputType) -> i64 {
@@ -79,13 +78,12 @@ fn part1(junction_box_pairs: &[JunctionBoxPair]) -> i64 {
         distinct_circuits.insert(ByAddress(Rc::clone(circuit)));
     }
 
-    let mut distinct_circuits_vec: Vec<&ByAddress<Rc<RefCell<Vec<&JunctionBox>>>>> = distinct_circuits.iter().collect();
+    let mut distinct_circuits_vec: Vec<&ByAddress<Rc<RefCell<Circuit>>>> = distinct_circuits.iter().collect();
     distinct_circuits_vec.sort_by(|a, b| b.borrow().len().cmp(&a.borrow().len()));
 
     let product = distinct_circuits_vec.iter()
         .take(3)
-        .fold(1, |acc, c| acc * c.borrow()
-        .len());
+        .fold(1, |acc, circuit| acc * circuit.borrow().len());
 
     product as i64
 }
@@ -108,7 +106,7 @@ fn part2(junction_box_pairs: &[JunctionBoxPair]) -> i64 {
         }
     }
 
-    for JunctionBoxPair { box1, box2, .. } in junction_box_pairs.iter() {
+    for JunctionBoxPair { box1, box2, .. } in junction_box_pairs {
         let circuit1 = Rc::clone(circuit_lookup.get(box1).unwrap());
         let circuit2 = Rc::clone(circuit_lookup.get(box2).unwrap());
 

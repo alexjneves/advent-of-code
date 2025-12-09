@@ -11,3 +11,4 @@ clap = { version = "4.0", features = ["derive"] }
 regex = "1.10.2"
 fancy-regex = "0.16.2"
 lazy_static = "1.4.0"
+by_address = "1.2.1"
